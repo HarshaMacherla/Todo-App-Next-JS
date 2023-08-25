@@ -8,7 +8,7 @@ const NavBar = () => {
         <Container className="m-0">
           <Navbar.Brand>
             <Link href="/" className="text-decoration-none text-white">
-              Navbar with text
+              Todos App
             </Link>
           </Navbar.Brand>
         </Container>

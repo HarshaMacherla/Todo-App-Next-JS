@@ -7,7 +7,15 @@ const TodoItems = () => {
 
   const todos = useSelector((state) => state.todo.todos);
 
-  const handleDeleteTodo = (todo) => {
+  const handleDeleteTodo = async (todo) => {
+    const response = await fetch("/api/new-todo", {
+      method: "DELETE",
+      body: JSON.stringify(todo),
+      headers: {
+        "Content-type": "application/json",
+      },
+    });
+
     dispatch(todoActions.removeTodo(todo));
   };
 
@@ -17,7 +25,7 @@ const TodoItems = () => {
       body: JSON.stringify({
         title: todo.title,
         _id: todo._id,
-        state: "complete",
+        status: "complete",
       }),
       headers: {
         "Content-type": "application/json",

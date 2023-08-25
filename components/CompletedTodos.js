@@ -1,32 +1,27 @@
-import { Table } from "react-bootstrap";
+import { Container, Table } from "react-bootstrap";
 import { useSelector } from "react-redux";
 
 const CompletedTodos = () => {
-  const completedTodos = useSelector((state) => state.todo.completed);
+  const completedTodos = useSelector((state) => state.todo.todos);
 
-  const todoItems = completedTodos.map((todo) => {
-    console.log(todo);
-
-    return (
-      <tr key={todo.id}>
-        <td>{todo.title}</td>
-        <td>
-          <button
-            className="btn btn-danger"
-            onClick={() => handleDeleteTodo(todo)}
-          >
-            Delete
-          </button>
-        </td>
-      </tr>
-    );
-  });
+  const todoItems = completedTodos
+    .filter((todo) => todo.status === "complete")
+    .map((todo) => {
+      return (
+        <tr key={todo._id} className="text-center">
+          <td>{todo.title}</td>
+        </tr>
+      );
+    });
 
   return (
     <>
-      <Table>
-        <tbody>{todoItems}</tbody>
-      </Table>
+      <Container className="m-5 mx-auto">
+        <h3 className="text-center">Completed Todos</h3>
+        <Table>
+          <tbody>{todoItems}</tbody>
+        </Table>
+      </Container>
     </>
   );
 };
