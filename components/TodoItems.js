@@ -3,9 +3,9 @@ import { Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
 const TodoItems = () => {
-  const todos = useSelector((state) => state.todo.pending);
-
   const dispatch = useDispatch();
+
+  const todos = useSelector((state) => state.todo.pending);
 
   const handleDeleteTodo = (todo) => {
     dispatch(todoActions.removeTodo(todo));

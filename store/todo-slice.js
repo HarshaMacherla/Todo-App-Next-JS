@@ -12,14 +12,20 @@ const TodoSlice = createSlice({
     },
     removeTodo(state, action) {
       state.pending = state.pending.filter(
-        (todo) => todo.id !== action.payload.id // Change === to !==
+        (todo) => todo._id !== action.payload._id
       );
     },
-    completedTodo(state, action) {
+    addCompletedTodo(state, action) {
       state.pending = state.pending.filter(
-        (todo) => todo.id !== action.payload.id // Change === to !==
+        (todo) => todo._id !== action.payload._id
       );
       state.completed.push(action.payload);
+    },
+    loadTodos(state, action) {
+      state.pending = action.payload;
+    },
+    loadCompletedTodos(state, action) {
+      state.completed = action.payload;
     },
   },
 });

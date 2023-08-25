@@ -7,10 +7,21 @@ const AddTodoForm = ({ setShowAddTodo }) => {
 
   const dispatch = useDispatch();
 
-  const handleAddTodo = () => {
+  const handleAddTodo = async () => {
     const newTodo = todoRef.current.value;
 
-    dispatch(todoActions.addNewTodo({ title: newTodo }));
+    const response = await fetch("/api/new-todo", {
+      method: "POST",
+      body: JSON.stringify({ title: newTodo }),
+      headers: {
+        "Content-type": "application/json",
+      },
+    });
+    const data = await response.json();
+
+    dispatch(todoActions.addNewTodo({ ...data, title: newTodo }));
+
+    setShowAddTodo(false);
   };
 
   return (
