@@ -38,6 +38,7 @@ export const getStaticProps = async () => {
     props: {
       todos: todos.map((todo) => ({
         title: todo.title,
+        status: todo.status,
         id: todo._id.toString(),
       })),
     },

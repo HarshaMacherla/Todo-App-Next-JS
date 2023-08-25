@@ -12,14 +12,16 @@ const AddTodoForm = ({ setShowAddTodo }) => {
 
     const response = await fetch("/api/new-todo", {
       method: "POST",
-      body: JSON.stringify({ title: newTodo }),
+      body: JSON.stringify({ title: newTodo, status: "incomplete" }),
       headers: {
         "Content-type": "application/json",
       },
     });
     const data = await response.json();
 
-    dispatch(todoActions.addNewTodo({ ...data, title: newTodo }));
+    dispatch(
+      todoActions.addNewTodo({ ...data, title: newTodo, status: "incomplete" })
+    );
 
     setShowAddTodo(false);
   };
