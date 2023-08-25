@@ -8,7 +8,7 @@ const TodoItems = () => {
   const todos = useSelector((state) => state.todo.todos);
 
   const handleDeleteTodo = async (todo) => {
-    const response = await fetch("/api/new-todo", {
+    await fetch("/api/new-todo", {
       method: "DELETE",
       body: JSON.stringify(todo),
       headers: {
@@ -20,7 +20,7 @@ const TodoItems = () => {
   };
 
   const handleCompletedTodo = async (todo) => {
-    const response = await fetch("/api/new-todo", {
+    await fetch("/api/new-todo", {
       method: "PUT",
       body: JSON.stringify({
         title: todo.title,
