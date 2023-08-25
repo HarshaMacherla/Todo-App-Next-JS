@@ -30,8 +30,6 @@ export const getStaticProps = async () => {
 
   const todos = await todosCollection.find().toArray();
 
-  console.log(todos);
-
   client.close();
 
   return {
@@ -39,7 +37,7 @@ export const getStaticProps = async () => {
       todos: todos.map((todo) => ({
         title: todo.title,
         status: todo.status,
-        id: todo._id.toString(),
+        _id: todo._id.toString(),
       })),
     },
     revalidate: 1,

@@ -3,29 +3,28 @@ import { createSlice } from "@reduxjs/toolkit";
 const TodoSlice = createSlice({
   name: "todo",
   initialState: {
-    pending: [],
-    completed: [],
+    todos: [],
   },
   reducers: {
     addNewTodo(state, action) {
-      state.pending.push({ ...action.payload, id: state.pending.length + 1 });
+      state.todos.push(action.payload);
     },
     removeTodo(state, action) {
-      state.pending = state.pending.filter(
+      state.todos = state.todos.filter(
         (todo) => todo._id !== action.payload._id
       );
     },
-    addCompletedTodo(state, action) {
-      state.pending = state.pending.filter(
-        (todo) => todo._id !== action.payload._id
-      );
-      state.completed.push(action.payload);
+    editTodo(state, action) {
+      state.todos = state.todos.map((todo) => {
+        if (todo._id === action.payload._id) {
+          return action.payload;
+        } else {
+          return todo;
+        }
+      });
     },
     loadTodos(state, action) {
-      state.pending = action.payload;
-    },
-    loadCompletedTodos(state, action) {
-      state.completed = action.payload;
+      state.todos = action.payload;
     },
   },
 });

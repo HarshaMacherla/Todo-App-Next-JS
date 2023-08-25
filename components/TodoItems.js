@@ -5,21 +5,38 @@ import { useDispatch, useSelector } from "react-redux";
 const TodoItems = () => {
   const dispatch = useDispatch();
 
-  const todos = useSelector((state) => state.todo.pending);
+  const todos = useSelector((state) => state.todo.todos);
 
   const handleDeleteTodo = (todo) => {
     dispatch(todoActions.removeTodo(todo));
   };
 
-  const handleCompletedTodo = (todo) => {
-    dispatch(todoActions.completedTodo(todo));
+  const handleCompletedTodo = async (todo) => {
+    const response = await fetch("/api/new-todo", {
+      method: "PUT",
+      body: JSON.stringify({
+        title: todo.title,
+        _id: todo._id,
+        state: "complete",
+      }),
+      headers: {
+        "Content-type": "application/json",
+      },
+    });
+
+    dispatch(
+      todoActions.editTodo({
+        title: todo.title,
+        _id: todo._id,
+        state: "complete",
+      })
+    );
   };
 
-  const todoItems = todos.map((todo) => {
-    console.log(todo);
-
-    return (
-      <tr key={todo.id}>
+  const todoItems = todos
+    .filter((todo) => todo.status === "incomplete")
+    .map((todo) => (
+      <tr key={todo._id}>
         <td>{todo.title}</td>
         <td>
           <button
@@ -38,8 +55,7 @@ const TodoItems = () => {
           </button>
         </td>
       </tr>
-    );
-  });
+    ));
 
   return (
     <>
